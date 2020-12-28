@@ -20,6 +20,7 @@ set (headers
   Frame.hh
   Geometry.hh
   Gui.hh
+  Gps.hh
   Imu.hh
   Joint.hh
   JointAxis.hh

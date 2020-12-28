@@ -35,6 +35,7 @@ set (sources
   Joint.cc
   JointAxis.cc
   Lidar.cc
+  Gps.cc
   Light.cc
   Link.cc
   Magnetometer.cc
@@ -100,6 +101,7 @@ if (BUILD_SDF_TEST)
     Geometry_TEST.cc
     Gui_TEST.cc
     Imu_TEST.cc
+    Gps_TEST.cc
     Joint_TEST.cc
     JointAxis_TEST.cc
     Lidar_TEST.cc
