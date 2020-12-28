@@ -38,6 +38,7 @@ namespace sdf
   class Camera;
   class ForceTorque;
   class Imu;
+  class Gps;
   class Lidar;
   class Magnetometer;
   class SensorPrivate;
@@ -300,6 +301,17 @@ namespace sdf
     /// is not a force torque sensor.
     /// \sa SensorType Type() const
     public: const ForceTorque *ForceTorqueSensor() const;
+
+    /// \brief Set the GPS sensor.
+    /// \param[in] _gps The GPS sensor.
+    public: void SetGpsSensor(const Gps &_gps);
+
+    /// \brief Get a pointer to an GPS sensor, or nullptr if the sensor
+    /// does not contain an GPS sensor.
+    /// \return Pointer to the sensor's GPS, or nullptr if the sensor
+    /// is not an GPS.
+    /// \sa SensorType Type() const
+    public: const Gps *GpsSensor() const;
 
     /// \brief Set the IMU sensor.
     /// \param[in] _imu The IMU sensor.

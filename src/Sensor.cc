@@ -20,6 +20,7 @@
 #include <ignition/math/Pose3.hh>
 #include "sdf/AirPressure.hh"
 #include "sdf/Altimeter.hh"
+#include "sdf/Gps.hh"
 #include "sdf/Camera.hh"
 #include "sdf/Error.hh"
 #include "sdf/ForceTorque.hh"
@@ -81,6 +82,10 @@ class sdf::SensorPrivate
     {
       this->magnetometer = std::make_unique<sdf::Magnetometer>(
           *_sensor.magnetometer);
+    }
+    if (_sensor.gps)
+    {
+      this->gps = std::make_unique<sdf::Gps>(*_sensor.gps);
     }
     if (_sensor.altimeter)
     {
@@ -144,6 +149,9 @@ class sdf::SensorPrivate
 
   /// \brief Pointer to an altimeter.
   public: std::unique_ptr<Altimeter> altimeter;
+  
+  /// \brief Pointer to GPS sensor.
+  public: std::unique_ptr<Gps> gps;
 
   /// \brief Pointer to an air pressure sensor.
   public: std::unique_ptr<AirPressure> airPressure;
@@ -226,6 +234,8 @@ bool Sensor::operator==(const Sensor &_sensor) const
   {
     case SensorType::ALTIMETER:
       return *(this->dataPtr->altimeter) == *(_sensor.dataPtr->altimeter);
+    case SensorType::GPS:
+      return *(this->dataPtr->gps) == *(_sensor.dataPtr->gps);
     case SensorType::MAGNETOMETER:
       return *(this->dataPtr->magnetometer) == *(_sensor.dataPtr->magnetometer);
     case SensorType::AIR_PRESSURE:
@@ -360,6 +370,9 @@ Errors Sensor::Load(ElementPtr _sdf)
   else if (type == "gps")
   {
     this->dataPtr->type = SensorType::GPS;
+    this->dataPtr->gps.reset(new Gps());
+    Errors err = this->dataPtr->gps->Load(_sdf->GetElement("gps"));
+    errors.insert(errors.end(), err.begin(), err.end());
   }
   else if (type == "gpu_ray" || type == "gpu_lidar")
   {

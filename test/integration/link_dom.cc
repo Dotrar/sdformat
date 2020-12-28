@@ -21,6 +21,7 @@
 #include <ignition/math/Pose3.hh>
 #include "sdf/AirPressure.hh"
 #include "sdf/Altimeter.hh"
+#include "sdf/Gps.hh"
 #include "sdf/Camera.hh"
 #include "sdf/Collision.hh"
 #include "sdf/Element.hh"
